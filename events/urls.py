@@ -19,6 +19,8 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('calendar/', views.CalendarView.as_view(), name='calendar'),
+    path('', views.CalendarView.as_view(), name='calendar'),
+    path('patients/', views.patients, name='patients'),
+    path('event/new', views.event, name='event'),
+    path('event/<int:eid>/', views.event, name='event_edit'),
 ]
