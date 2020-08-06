@@ -7,12 +7,9 @@ from django.utils.safestring import mark_safe
 from datetime import datetime, timedelta, date
 import calendar
 
-from app.models import Event
+from app.models import Event, Patient
 from app.calendar import Calendar
 from app.forms import EventForm
-
-def patients(request):
-    return render(request, 'patients.html', {})
 
 class CalendarView(generic.ListView):
     model = Event

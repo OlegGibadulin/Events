@@ -3,22 +3,30 @@
 
 {% block content %}
 
-<div class="container mt-4 ">
-    <div class="pt-5 pl-3 ">
-        <h4 class="pb-2 ">Recent</h4>
+<div class="container mt-3 ">
+    <div class="clearfix text-center">
+        <a class="btn btn-primary w-25" href="{% url 'create_patient' %}"> + </a>
+    </div>
 
-        <div class="row mb-5">
-            <div class="col-md-8">
-                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </div>
+    <div class="mt-4 ">
+        <a class="p-2 text-dark font-weight-bold" href="{% url 'patients' %}">Новые</a>
+        <a class="p-2 text-dark" href="{% url 'patients' %}">Недавние</a>
+        <hr>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-8">
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
         </div>
+        <div class="col-4 ">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+    </div>
 
-        <!-- {% for tag in popular_tags.all %}
-            <a href="{% url 'tag' tag_name=tag.name %}" type="button " class="btn btn-light mb-1 ">{{ tag.name }}</a>
-        {% endfor %} -->
+    <div class="mt-4">
+        {% for patient in patients.all %}
+            <a href="{% url 'patient' pid=patient.pk %}" type="button " class="btn btn-light mb-1 ">{{ patient.name }}</a>
+        {% endfor %}
     </div>
 </div>
 

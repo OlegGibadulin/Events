@@ -10,7 +10,7 @@
 }
 
 .calendar tr, .calendar td {
-    border: 1px solid black;
+    border: 1px solid dimgrey;
 }
 
 .calendar th {
@@ -20,8 +20,9 @@
 }
 
 .calendar td {
+    border-color: dimgrey;
     width: 100px;
-    height: 100px;
+    height: 40px;
     padding: 20px 0px 0px 5px;
 }
 
@@ -36,8 +37,4 @@
 ul {
     height: 100%;
     padding: 0px 5px 0px 20px;
-}
-
-a {
-    color: crimson;
 }
