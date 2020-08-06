@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-from app.managers import PatientManager
+from app.managers import PatientManager, EventManager
 
 class Patient(models.Model):
     name = models.CharField(max_length=200)
@@ -24,14 +24,16 @@ class Procedure(models.Model):
         return '{} {}'.format(self.title, self.ref_num)
 
 class Event(models.Model):
-    date = models.DateTimeField()
+    date = models.DateField()
     price = models.PositiveIntegerField(default=0)
 
     procedures = models.ManyToManyField(Procedure, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.PROTECT)
 
+    objects = EventManager()
+
     @property
     def get_html_url(self):
-        url = reverse('event_edit', args=(self.id,))
-        return f'<a href="{url}"> {self.id} </a>'
+        url = reverse('events', args=(self.date.strftime('%Y-%m-%d'),))
+        return f'href="{url}"'
 

@@ -6,7 +6,7 @@
 <div class="container pt-3">
     <div class="clearfix text-center">
         <a class="btn btn-outline-secondary w-25" href="{% url 'calendar' %}?{{ prev_month }}"> <- </a>
-        <a class="btn btn-primary w-25" href="{% url 'event' %}"> + </a>
+        <a class="btn btn-primary w-25" href="{% url 'create_event' %}"> + </a>
         <a class="btn btn-outline-secondary w-25" href="{% url 'calendar' %}?{{ next_month }}"> -> </a>
     </div>
 

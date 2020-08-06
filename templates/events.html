@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-3 ">
+    {% comment %} <div class="clearfix text-center">
+        <a class="btn btn-primary w-25" href="{% url 'create_patient' %}"> + </a>
+    </div> {% endcomment %}
+
+    <div class="mt-4">
+        {% for event in events.all %}
+            <p> {{ event.date }} </p>
+            {% comment %} <a href="{% url 'event' pid=event.pk %}" type="button " class="btn btn-light mb-1 ">{{ patient.name }}</a> {% endcomment %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

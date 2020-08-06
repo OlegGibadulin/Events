@@ -14,16 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 
 from app import views
 
 urlpatterns = [
     path('', views.CalendarView.as_view(), name='calendar'),
+
+    path('events/<str:date>', views.events, name='events'),
+    path('event/<int:eid>/', views.patient, name='event'),
+    path('event/create/', views.event, name='create_event'),
+    path('event/create/<str:date>', views.event_on_date, name='create_event_on_date'),
+    path('event/<int:eid>/', views.event, name='edit_event'),
+    
     path('patients/', views.patients, name='patients'),
-    path('event/new/', views.event, name='event'),
-    path('event/<int:eid>/', views.event, name='event_edit'),
+    path('patient/<int:pid>/', views.patient, name='patient'),
     path('patient/create/', views.edit_patient, name='create_patient'),
     path('patient/edit/<int:pid>/', views.edit_patient, name='edit_patient'),
-    path('patient/<int:pid>/', views.patient, name='patient'),
 ]

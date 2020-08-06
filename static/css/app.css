@@ -22,8 +22,8 @@
 .calendar td {
     border-color: dimgrey;
     width: 100px;
-    height: 40px;
-    padding: 20px 0px 0px 5px;
+    height: 50px;
+    padding: 0px 0px 0px 0px;
 }
 
 .month {
@@ -37,4 +37,11 @@
 ul {
     height: 100%;
     padding: 0px 5px 0px 20px;
+}
+
+td a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px 0px 0px 5px;
 }
