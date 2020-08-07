@@ -23,7 +23,7 @@
                 
                 <p> Процедуры:
                     {% for procedure in event.procedures.all %}
-                        <h3> {{ procedure }} </h3>
+                        <a href="{% url 'edit_procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary mb-1 ">{{ procedure.title }}</a>
                     {% endfor %}
                 </p>
             </div>

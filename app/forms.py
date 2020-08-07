@@ -1,7 +1,9 @@
-from django.forms import ModelForm, DateInput, TextInput
-from app.models import Event, Patient
+from django.forms import ModelForm, DateInput, TextInput, CharField
+from app.models import Event, Patient, Procedure
 
 class EventForm(ModelForm):
+    # temp_id = CharField(label = 'extra_field', required = False)
+
     class Meta:
         model = Event
         exclude = ['price']
@@ -30,3 +32,8 @@ class PatientForm(ModelForm):
         model = Patient
         # fields = ['name', 'description']
         exclude = ['is_active', 'pub_date']
+
+class ProcedureForm(ModelForm):
+    class Meta:
+        model = Procedure
+        exclude = ['ref_num']

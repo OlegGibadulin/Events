@@ -17,7 +17,7 @@ def edit_patient(request, pid=None):
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('patients'))
-    return render(request, 'patient_form.html', {'form': form})
+    return render(request, 'form.html', {'form': form})
 
 def patient(request, pid):
     patient = Patient.objects.get(pk=pid)

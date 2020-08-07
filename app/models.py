@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-from app.managers import PatientManager, EventManager
+from app.managers import PatientManager, EventManager, ProcedureManager
 
 class Patient(models.Model):
     name = models.CharField(max_length=200)
@@ -20,8 +20,10 @@ class Procedure(models.Model):
     title = models.CharField(max_length=200)
     ref_num = models.PositiveIntegerField(default=0)
 
+    objects = ProcedureManager()
+
     def __str__(self):
-        return '{} {}'.format(self.title, self.ref_num)
+        return '{}'.format(self.title)
 
 class Event(models.Model):
     date = models.DateField()

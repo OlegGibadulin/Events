@@ -30,4 +30,8 @@ urlpatterns = [
     path('patient/<int:pid>/', views.patient, name='patient'),
     path('patient/create/', views.edit_patient, name='create_patient'),
     path('patient/edit/<int:pid>/', views.edit_patient, name='edit_patient'),
+
+    path('procedures/', views.procedures, name='procedures'),
+    path('procedure/create/', views.edit_procedure, name='create_procedure'),
+    path('procedure/edit/<int:pid>/', views.edit_procedure, name='edit_procedure'),
 ]

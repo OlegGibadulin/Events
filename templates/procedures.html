@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-3 ">
+    <div class="clearfix text-center">
+        <a class="btn btn-primary w-25" href="{% url 'create_procedure' %}"> + </a>
+    </div>
+
+    <div class="mt-4">
+        {% for procedure in procedures.all %}
+            <a href="{% url 'edit_procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary mb-1 ">{{ procedure.title }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

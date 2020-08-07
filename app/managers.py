@@ -7,3 +7,6 @@ class PatientManager(models.Manager):
 class EventManager(models.Manager):
     def by_date(self, d):
         return self.filter(date=d)
+
+class ProcedureManager(models.Manager):
+    pass

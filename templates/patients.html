@@ -25,7 +25,7 @@
 
     <div class="mt-4">
         {% for patient in patients.all %}
-            <a href="{% url 'patient' pid=patient.pk %}" type="button " class="btn btn-light mb-1 ">{{ patient.name }}</a>
+            <a href="{% url 'patient' pid=patient.pk %}" type="button " class="btn btn-outline-secondary mb-1 ">{{ patient.name }}</a>
         {% endfor %}
     </div>
 </div>
