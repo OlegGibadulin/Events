@@ -4,14 +4,29 @@
 {% block content %}
 
 <div class="container mt-3 ">
-    {% comment %} <div class="clearfix text-center">
-        <a class="btn btn-primary w-25" href="{% url 'create_patient' %}"> + </a>
-    </div> {% endcomment %}
+    <div class="clearfix text-center">
+        <a class="btn btn-primary w-25" href="{% url 'create_event_on_date' date=date %}"> + </a>
+    </div>
 
-    <div class="mt-4">
+    <h3 class='mt-3 text-center'> {{ events.first.date }} </h3>
+
+    <div class="mt-5">
         {% for event in events.all %}
-            <p> {{ event.date }} </p>
-            {% comment %} <a href="{% url 'event' pid=event.pk %}" type="button " class="btn btn-light mb-1 ">{{ patient.name }}</a> {% endcomment %}
+            <div class='mb-5'>
+                <h4 class="d-flex justify-content-between">
+                    <a href="{% url 'patient' pid=event.patient.pk %}" type="button " class="btn-link">{{ event.patient }}</a>
+                    <form action='{% url 'edit_event' eid=event.pk %}'>
+                        <input class="btn btn-success" type="submit" value="Edit" />
+                    </form>
+                </h4>
+                <hr>
+                
+                <p> Процедуры:
+                    {% for procedure in event.procedures.all %}
+                        <h3> {{ procedure }} </h3>
+                    {% endfor %}
+                </p>
+            </div>
         {% endfor %}
     </div>
 </div>

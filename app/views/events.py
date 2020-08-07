@@ -6,7 +6,7 @@ from datetime import datetime
 from app.models import Event
 from app.forms import EventForm
 
-def event(request, eid=None):
+def edit_event(request, eid=None):
     # instance = Patient() if not pid else get_object_or_404(Patient, pk=pid)
     instance = Event()
     if eid:
@@ -32,6 +32,7 @@ def event_on_date(request, date):
 def events(request, date):
     # date = datetime.strptime(date, '%Y-%m-%d')
     context = {
-        'events': Event.objects.by_date(date)
+        'events': Event.objects.by_date(date),
+        'date': date,
     }
     return render(request, 'events.html', context)

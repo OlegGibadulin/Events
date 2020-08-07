@@ -22,10 +22,9 @@ urlpatterns = [
     path('', views.CalendarView.as_view(), name='calendar'),
 
     path('events/<str:date>', views.events, name='events'),
-    path('event/<int:eid>/', views.patient, name='event'),
-    path('event/create/', views.event, name='create_event'),
+    path('event/create/', views.edit_event, name='create_event'),
+    path('event/<int:eid>/', views.edit_event, name='edit_event'),
     path('event/create/<str:date>', views.event_on_date, name='create_event_on_date'),
-    path('event/<int:eid>/', views.event, name='edit_event'),
     
     path('patients/', views.patients, name='patients'),
     path('patient/<int:pid>/', views.patient, name='patient'),

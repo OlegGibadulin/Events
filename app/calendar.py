@@ -28,8 +28,8 @@ class Calendar(HTMLCalendar):
                 url = events_per_day[0].get_html_url
             else:
                 cell_style = 'btn-outline-secondary'
-                if date.day == datetime.today().day:
-                    cell_style = 'font-weight-bold'
+                if date.date() == datetime.today().date():
+                    cell_style = 'font-weight-bold text-dark'
                 url_str = reverse('create_event_on_date', args=(date.strftime('%Y-%m-%d'),))
                 url = f'href="{url_str}"'
 

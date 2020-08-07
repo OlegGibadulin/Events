@@ -26,6 +26,9 @@ class Procedure(models.Model):
 class Event(models.Model):
     date = models.DateField()
     price = models.PositiveIntegerField(default=0)
+    # medication = models.CharField(max_length=400)
+    # area = models.CharField(max_length=400)
+    # notes = models.TextField()
 
     procedures = models.ManyToManyField(Procedure, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.PROTECT)
