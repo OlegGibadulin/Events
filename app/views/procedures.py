@@ -7,7 +7,7 @@ from app.forms import ProcedureForm
 
 def procedures(request):
     context = {
-        'procedures': Procedure.objects.all(),
+        'procedures': Procedure.objects.newest(),
     }
     return render(request, 'procedures.html', context)
 

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from datetime import datetime
 
-from app.models import Event
+from app.models import Event, Patient
 from app.forms import EventForm
 
 def edit_event(request, eid=None):
@@ -18,6 +18,16 @@ def edit_event(request, eid=None):
 def event_on_date(request, date):
     instance = Event()
     form = EventForm(request.POST or None, instance=instance, initial={'date': date})
+
+    if request.POST and form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('calendar'))
+    return render(request, 'form.html', {'form': form})
+
+def event_on_patient(request, pid):
+    patient = Patient.objects.get(pk=pid)
+    instance = Event()
+    form = EventForm(request.POST or None, instance=instance, initial={'patient': patient})
 
     if request.POST and form.is_valid():
         form.save()

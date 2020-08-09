@@ -25,6 +25,7 @@ urlpatterns = [
     path('event/create/', views.edit_event, name='create_event'),
     path('event/<int:eid>/', views.edit_event, name='edit_event'),
     path('event/create/<str:date>', views.event_on_date, name='create_event_on_date'),
+    path('event/create/patient/<int:pid>', views.event_on_patient, name='create_event_on_patient'),
     
     path('patients/', views.patients, name='patients'),
     path('patient/<int:pid>/', views.patient, name='patient'),

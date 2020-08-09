@@ -7,7 +7,7 @@ from app.forms import PatientForm
 
 def patients(request):
     context = {
-        'patients': Patient.objects.newest(),
+        'patients': Patient.objects.newest()
     }
     return render(request, 'patients.html', context)
 
@@ -21,10 +21,6 @@ def edit_patient(request, pid=None):
 
 def patient(request, pid):
     patient = Patient.objects.get(pk=pid)
-    # context = {
-    #     'name': patient.name,
-    #     'description': patient.description,
-    # }
     context = {
         'patient': patient,
     }
