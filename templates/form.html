@@ -24,9 +24,13 @@
         <form method="post">
             
             {% csrf_token %}
-            {{ form.as_p }}
+
+            {% for field in form %}
+                {{ field.label_tag }} {{ field }}
+                <br>
+            {% endfor %}
     
-            <tr><td colspan="2"><button type="submit" class="btn btn-success right"> Сохранить </button></td></tr>
+            <tr><td colspan="2"><button type="submit" class="btn btn-success right mt-3"> Отправить </button></td></tr>
         </form>
     </div>
 </div>

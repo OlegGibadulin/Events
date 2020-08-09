@@ -19,7 +19,7 @@ class CalendarView(generic.ListView):
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         return context
-    
+
 def get_date(req_month):
     if req_month:
         year, month = (int(x) for x in req_month.split('-'))

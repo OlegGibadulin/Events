@@ -11,3 +11,7 @@ class EventManager(models.Manager):
 class ProcedureManager(models.Manager):
     def newest(self):
         return self.order_by('-pk')
+
+class ProfileManager(models.Manager):
+    def is_exist(self, name, email):
+        return User.objects.filter(username=name).count()

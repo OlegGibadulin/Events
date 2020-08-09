@@ -21,6 +21,10 @@ from app import views
 urlpatterns = [
     path('', views.CalendarView.as_view(), name='calendar'),
 
+    path('register/', views.register, name='register'),
+    path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
+
     path('events/<str:date>', views.events, name='events'),
     path('event/create/', views.edit_event, name='create_event'),
     path('event/<int:eid>/', views.edit_event, name='edit_event'),
