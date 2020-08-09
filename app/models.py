@@ -6,7 +6,7 @@ from app.managers import PatientManager, EventManager, ProcedureManager
 
 class Patient(models.Model):
     name = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     is_active = models.BooleanField(default=True)
     pub_date = models.DateTimeField(default=timezone.now, db_index=True)
@@ -28,9 +28,9 @@ class Procedure(models.Model):
 class Event(models.Model):
     date = models.DateField()
     price = models.PositiveIntegerField(default=0)
-    # medication = models.CharField(max_length=400)
-    # area = models.CharField(max_length=400)
-    # notes = models.TextField()
+    medication = models.CharField(max_length=400, blank=True)
+    body_area = models.CharField(max_length=400, blank=True)
+    notes = models.TextField(blank=True)
 
     procedures = models.ManyToManyField(Procedure, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.PROTECT)
