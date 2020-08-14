@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.utils.safestring import mark_safe
 from datetime import datetime, timedelta, date
@@ -6,7 +7,7 @@ import calendar
 from app.models import Event
 from app.calendar import Calendar
 
-class CalendarView(generic.ListView):
+class CalendarView(LoginRequiredMixin, generic.ListView):
     model = Event
     template_name = 'calendar.html'
 

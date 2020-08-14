@@ -13,6 +13,7 @@ def patients(request):
     }
     return render(request, 'patients.html', context)
 
+@login_required(login_url='/login')
 def edit_patient(request, pid=None):
     instance = Patient() if not pid else get_object_or_404(Patient, pk=pid)
     form = PatientForm(request.POST or None, instance=instance)
@@ -21,6 +22,7 @@ def edit_patient(request, pid=None):
         return HttpResponseRedirect(reverse('patients'))
     return render(request, 'form.html', {'form': form})
 
+@login_required(login_url='/login')
 def patient(request, pid):
     patient = Patient.objects.get(pk=pid)
     context = {

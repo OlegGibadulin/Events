@@ -1,14 +1,26 @@
 {% load static %}
 
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom box-shadow justify-content-center">
-    <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" href="{% url 'calendar' %}">Календарь</a>
-      <a class="p-2 text-dark" href="{% url 'patients' %}">Пациенты</a>
-      <a class="p-2 text-dark" href="{% url 'procedures' %}">Процедуры</a>
+<div class="border-bottom box-shadow">
+    {% if user.is_authenticated %}
+    <nav class="my-2 my-md-0 mr-md-3 pt-1 d-flex justify-content-between">
+        <div class="pt-4">
+            <a class="p-1 text-dark" href="{% url 'calendar' %}">Календарь</a>
+            <a class="p-1 text-dark" href="{% url 'patients' %}">Пациенты</a>
+            <a class="p-1 text-dark" href="{% url 'procedures' %}">Процедуры</a>
+        </div>
+        <a class="p-2 small text-muted " href="{% url 'logout' %}">Выйти</a>
     </nav>
+    {% else %}
+    <nav class="my-2 my-md-0 mr-md-3 pt-4 text-center">
+        <a class="p-2 text-dark" href="{% url 'login' %}">Вход</a>
+        <a class="p-2 text-dark" href="{% url 'register' %}">Регистрация</a>
+    </nav>
+    {% endif %}
+    </nav>  
 </div>
 
 {% block script %}
 <script>
 </script>
 {% endblock %}
+
