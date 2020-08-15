@@ -9,10 +9,12 @@
     </div>
 
     <div class="mt-4">
+        <a class="btn btn-secondary mb-1" href="{% url 'patients' %}">Недавние</a>
         {% for procedure in procedures.all %}
-            <a href="{% url 'edit_procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary mb-1 ">{{ procedure.title }}</a>
+            <a href="{% url 'edit_procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary mb-1">{{ procedure.title }}</a>
         {% endfor %}
     </div>
+    <hr>
 </div>
 
 {% endblock %}

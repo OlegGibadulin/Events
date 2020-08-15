@@ -3,7 +3,7 @@
 <div class="border-bottom box-shadow">
     {% if user.is_authenticated %}
     <nav class="my-2 my-md-0 mr-md-3 pt-1 d-flex justify-content-between">
-        <div class="pt-4">
+        <div class="pt-4" id="selectedDiv">
             <a class="p-1 text-dark" href="{% url 'calendar' %}">Календарь</a>
             <a class="p-1 text-dark" href="{% url 'patients' %}">Пациенты</a>
             <a class="p-1 text-dark" href="{% url 'procedures' %}">Процедуры</a>
@@ -19,8 +19,6 @@
     </nav>  
 </div>
 
-{% block script %}
 <script>
 </script>
-{% endblock %}
 

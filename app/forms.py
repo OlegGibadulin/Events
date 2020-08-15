@@ -11,7 +11,7 @@ class EventForm(forms.ModelForm):
             'patient': forms.Select(attrs={'class': 'form-control'}),
             'procedures': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'medication': forms.TextInput(attrs={'class': 'form-control',
-                'placeholder': 'Введите название препарата'}),
+                'placeholder': 'Введите название препарата', 'id': 'medication'}),
             'body_area': forms.TextInput(attrs={'class': 'form-control', 
                 'placeholder': 'Введите область применения'}),
             'notes': forms.Textarea(attrs={'class': 'form-control',

@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block head %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+
 {% block content %}
 
 <div class="container mt-4">
@@ -34,5 +40,20 @@
         </form>
     </div>
 </div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $( function() {
+        $( "#medication" ).autocomplete({
+        source: '{% url 'create_event' %}'
+        });
+    });
+</script>
 
 {% endblock %}

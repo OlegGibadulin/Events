@@ -10,6 +10,9 @@
     <link rel="stylesheet" href={% static "css/bootstrap.css" %}>
     <link rel="stylesheet" href={% static "css/app.css" %}>
 
+    {% block head %}
+    {% endblock %}
+
     <title>Events</title>
 </head>
 
@@ -17,7 +20,8 @@
     <div class="container-fluid">
         {% include 'inc/navbar.html' %}
         
-        {% block content %} {% endblock %}
+        {% block content %}
+        {% endblock %}
         
         <!-- {% include 'inc/footer.html' %} -->
     </div>

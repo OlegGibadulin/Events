@@ -12,7 +12,8 @@
 
     <div class="mt-5">
         {% for event in events.all %}
-            <div class='mb-5'>
+            <div class='mb-4 bg-light p-3'>
+                
                 <h4 class="d-flex justify-content-between">
                     <a href="{% url 'patient' pid=event.patient.pk %}" type="button " class="btn-link">{{ event.patient }}</a>
                     <form action='{% url 'edit_event' eid=event.pk %}'>
@@ -21,11 +22,23 @@
                 </h4>
                 <hr>
                 
-                <p> Процедуры:
+                <h6 class="text-secondary">Процедуры
                     {% for procedure in event.procedures.all %}
-                        <a href="{% url 'edit_procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary mb-1 ">{{ procedure.title }}</a>
+                        <a href="{% url 'edit_procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary">{{ procedure.title }}</a>
                     {% endfor %}
-                </p>
+                </h6>
+
+                <h6 class="text-secondary">Препарат
+                    <p class="text-dark">{{ event.medication }}</p>
+                </h6>
+
+                <h6 class="text-secondary">Область
+                    <p class="text-dark">{{ event.body_area }}</p>
+                </h6>
+
+                <h6 class="text-secondary">Заметки
+                    <p class="text-dark">{{ event.notes }}</p>
+                </h6>
             </div>
         {% endfor %}
     </div>
