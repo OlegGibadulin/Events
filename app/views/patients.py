@@ -3,13 +3,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from app.models import Patient
+from app.models import Patient, Event
 from app.forms import PatientForm
 
 @login_required(login_url='/login')
 def patients(request):
     context = {
-        'patients': Patient.objects.newest()
+        'patients': Patient.objects.newest(),
     }
     return render(request, 'patients.html', context)
 
@@ -25,7 +25,9 @@ def edit_patient(request, pid=None):
 @login_required(login_url='/login')
 def patient(request, pid):
     patient = Patient.objects.get(pk=pid)
+    events = Event.objects.by_patient(pid)
     context = {
         'patient': patient,
+        'events': events,
     }
     return render(request, 'patient.html', context)

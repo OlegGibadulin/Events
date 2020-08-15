@@ -3,13 +3,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from app.models import Procedure
+from app.models import Procedure, Event
 from app.forms import ProcedureForm
 
 @login_required(login_url='/login')
 def procedures(request):
     context = {
         'procedures': Procedure.objects.newest(),
+        'events': Event.objects.all(),
     }
     return render(request, 'procedures.html', context)
 

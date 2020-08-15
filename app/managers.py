@@ -20,6 +20,12 @@ class EventManager(models.Manager):
         for event in events:
             medications.append(event.medication)
         return medications
+    
+    def by_patient(self, pid):
+        return self.filter(patient__id=pid).order_by('-date')
+    
+    def by_procedure(self, procedure_title):
+        return self.filter(procedures__title=procedure_title).order_by('-date')
 
 class ProcedureManager(models.Manager):
     def newest(self):

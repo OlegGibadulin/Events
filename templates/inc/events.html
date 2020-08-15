@@ -1,0 +1,34 @@
+<div class="mt-4">
+    {% for event in events.all %}
+        <div class='mb-4 bg-light p-3 rounded'>
+
+            <h4 class='mb-4 text-center'> {{ event.date }} </h4>
+            
+            <h4 class="d-flex justify-content-between">
+                <a href="{% url 'patient' pid=event.patient.pk %}" type="button " class="btn-link">{{ event.patient }}</a>
+                <form action='{% url 'edit_event' eid=event.pk %}'>
+                    <input class="btn btn-success" type="submit" value="Edit" />
+                </form>
+            </h4>
+            <hr>
+            
+            <h6 class="text-secondary">Процедуры
+                {% for procedure in event.procedures.all %}
+                    <a href="{% url 'edit_procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary">{{ procedure.title }}</a>
+                {% endfor %}
+            </h6>
+
+            <h6 class="text-secondary">Препарат
+                <p class="text-dark">{{ event.medication }}</p>
+            </h6>
+
+            <h6 class="text-secondary">Область
+                <p class="text-dark">{{ event.body_area }}</p>
+            </h6>
+
+            <h6 class="text-secondary">Заметки
+                <p class="text-dark">{{ event.notes }}</p>
+            </h6>
+        </div>
+    {% endfor %}
+</div>
