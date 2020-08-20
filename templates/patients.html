@@ -8,20 +8,54 @@
         <a class="btn btn-primary w-25" href="{% url 'create_patient' %}"> + </a>
     </div>
 
-    <div class="row mt-5">
-        <div class="col-8">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-        </div>
-        <div class="col-4 ">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </div>
+    <div class="mt-5">
+        <input id="id_search" class="form-control" type="text" placeholder="Search" aria-label="Search">
     </div>
 
-    <div class="mt-4">
-        {% for patient in patients.all %}
-            <a href="{% url 'patient' pid=patient.pk %}" type="button " class="btn btn-outline-secondary mb-1 ">{{ patient.name }}</a>
-        {% endfor %}
-    </div>
+    <div id="id_patients"></div>
 </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    /* Search patients */
+
+    function searchPatients(searchRequest) {
+        $.ajax({
+            url: '{% url "search_patients" %}',
+            data: {
+                'search_request': searchRequest
+            },
+            dataType: 'html',
+            success: function(data) {
+                $('#id_patients').html(data)
+            },
+            error: function() {
+                alert("Error searching patients");
+            }
+        });
+    }
+
+    searchPatients('');
+
+    $("#id_search").bind("change paste keyup", function() {
+        let searchRequest = $(this).val();
+        let $this = $(this);
+        let delay = 300;
+
+        clearTimeout($this.data('timer'));
+        $this.data('timer', setTimeout(function() {
+            $this.removeData('timer');
+            
+            searchPatients(searchRequest)
+        }, delay));
+    });
+</script>
 
 {% endblock %}

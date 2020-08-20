@@ -33,6 +33,7 @@ urlpatterns = [
     path('event/create/patient/<int:pid>', views.event_on_patient, name='create_event_on_patient'),
     
     path('patients/', views.patients, name='patients'),
+    path('patients/ajax/search/', views.search_patients, name='search_patients'),
     path('patient/<int:pid>/', views.patient, name='patient'),
     path('patient/create/', views.edit_patient, name='create_patient'),
     path('patient/edit/<int:pid>/', views.edit_patient, name='edit_patient'),

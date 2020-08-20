@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 
 from app.models import Patient, Event
 from app.forms import PatientForm
@@ -31,3 +32,10 @@ def patient(request, pid):
         'events': events,
     }
     return render(request, 'patient.html', context)
+
+@login_required(login_url='/login')
+def search_patients(request):
+    search_request = request.GET.get('search_request', None)
+    patients = Patient.objects.starts_with(search_request)
+    html = render_to_string('inc/patients.html', {'patients': patients})
+    return HttpResponse(html)
