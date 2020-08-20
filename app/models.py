@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 from app.managers import PatientManager, EventManager, ProcedureManager, ProfileManager
 
@@ -41,8 +42,6 @@ class Event(models.Model):
     def get_html_url(self):
         url = reverse('events', args=(self.date.strftime('%Y-%m-%d'),))
         return f'href="{url}"'
-
-from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

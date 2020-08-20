@@ -84,6 +84,8 @@ import django.contrib.auth as auth
 class RegisterForm(forms.ModelForm):
     error_messages = {
         'password_mismatch': 'Пароли не совпадают',
+        'username_already_exists': 'Данный логин уже используется',
+        'email_already_exists': 'Данный Email уже используется',
     }
 
     username = forms.CharField(
@@ -120,6 +122,24 @@ class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.label_suffix=''
+    
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if UserProfile.objects.is_username_exists(username):
+            raise forms.ValidationError(
+                self.error_messages['username_already_exists'],
+                code='username_already_exists',
+            )
+        return username
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if UserProfile.objects.is_email_exists(email):
+            raise forms.ValidationError(
+                self.error_messages['email_already_exists'],
+                code='email_already_exists',
+            )
+        return email
     
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")

@@ -12,12 +12,11 @@ def register(request):
     form = RegisterForm(request.POST or None)
 
     if request.POST and form.is_valid():
-        # form.register()
         form.save()
         user = form.get_user()
         auth.login(request, user)
         return HttpResponseRedirect(reverse('calendar'))
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'create_form.html', {'form': form})
 
 def login(request):
     redirected_path = request.GET.get('next', '/')
@@ -27,7 +26,7 @@ def login(request):
         user = form.get_user()
         auth.login(request, user)
         return redirect(redirected_path)
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'create_form.html', {'form': form})
 
 def logout(request):
     auth.logout(request)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class PatientManager(models.Manager):
     def newest(self):
@@ -61,5 +62,8 @@ class ProcedureManager(models.Manager):
         procedure.save()
 
 class ProfileManager(models.Manager):
-    def is_exist(self, username):
+    def is_username_exists(self, username):
         return User.objects.filter(username=username).exists()
+    
+    def is_email_exists(self, email):
+        return User.objects.filter(email=email).exists()
