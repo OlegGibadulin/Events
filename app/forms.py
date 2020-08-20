@@ -38,7 +38,8 @@ class PatientForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control',
-                'placeholder': 'Введите имя пациента'}),
+                'placeholder': 'Введите имя пациента', 'id': '',
+                'autofocus': 'autofocus'}),
             'description': forms.Textarea(attrs={'class': 'form-control',
                 'placeholder': 'Заполните карту пациента'}),
         }
@@ -59,7 +60,8 @@ class ProcedureForm(forms.ModelForm):
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control',
-                'placeholder': 'Введите название процедуры'}),
+                'placeholder': 'Введите название процедуры',
+                'id': '', 'autofocus': 'autofocus'}),
         }
 
         labels = {
@@ -85,7 +87,8 @@ class RegisterForm(forms.ModelForm):
     username = forms.CharField(
         label=('Логин'),
         widget=forms.TextInput(attrs={'class': 'form-control',
-            'placeholder': 'Введите логин'}),
+            'placeholder': 'Введите логин', 'id': 'id_username',
+            'autofocus': 'autofocus'}),
     )
 
     email = forms.EmailField(
@@ -147,7 +150,8 @@ class LoginForm(forms.ModelForm):
     username = forms.CharField(
         label=('Логин'),
         widget=forms.TextInput(attrs={'class': 'form-control',
-            'placeholder': 'Введите логин'}),
+            'placeholder': 'Введите логин', 'id': '',
+            'autofocus': 'autofocus'}),
     )
 
     password = forms.CharField(

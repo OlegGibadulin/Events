@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.CalendarView.as_view(), name='calendar'),
 
     path('register/', views.register, name='register'),
+    path('register/ajax/validate_username/', views.validate_username, name='validate_username'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
 
@@ -37,6 +38,7 @@ urlpatterns = [
     path('patient/edit/<int:pid>/', views.edit_patient, name='edit_patient'),
 
     path('procedures/', views.procedures, name='procedures'),
+    path('procedures/ajax/filter/', views.filter_procedures, name='filter_procedures'),
     path('procedure/create/', views.edit_procedure, name='create_procedure'),
     path('procedure/edit/<int:pid>/', views.edit_procedure, name='edit_procedure'),
 ]

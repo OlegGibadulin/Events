@@ -32,5 +32,5 @@ class ProcedureManager(models.Manager):
         return self.order_by('-pk')
 
 class ProfileManager(models.Manager):
-    def is_exist(self, name, email):
-        return User.objects.filter(username=name).count()
+    def is_exist(self, username):
+        return User.objects.filter(username=username).exists()

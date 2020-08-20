@@ -20,11 +20,13 @@
         {% endfor %}
 
         {% for error in form.non_field_errors %}
-            <div class="alert alert-danger">
+            <div class="alert alert-danger" id="id_errors">
                 {{ field.label }} <strong>{{ error|escape }}</strong>
             </div>
         {% endfor %}
     {% endif %}
+
+    
 
     <div class="form-group">
         <form method="post">
@@ -36,7 +38,7 @@
                 <br>
             {% endfor %}
     
-            <tr><td colspan="2"><button type="submit" class="btn btn-success right mt-3"> Отправить </button></td></tr>
+            <tr><td colspan="2"><button id="id_register" type="submit" class="btn btn-success right mt-3"> Отправить </button></td></tr>
         </form>
     </div>
 </div>
@@ -51,9 +53,30 @@
 <script>
     $( function() {
         $( "#medication" ).autocomplete({
-        source: '{% url 'create_event' %}'
+        source: '{% url "create_event" %}'
         });
     });
 </script>
+
+<script>
+    $("#id_username").change(function() {
+        var username = $(this).val();
+
+        $.ajax({
+            url: '{% url "validate_username" %}',
+            data: {
+                'username': username
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.is_taken) {
+                    alert("Already exists");
+                }
+            }
+        });
+    });
+</script>
+
+<script src={% static "js/example.js" %}></script>
 
 {% endblock %}
