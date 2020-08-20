@@ -22,24 +22,25 @@ urlpatterns = [
     path('', views.CalendarView.as_view(), name='calendar'),
 
     path('register/', views.register, name='register'),
-    path('register/ajax/validate_username/', views.validate_username, name='validate_username'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
 
     path('events/<str:date>', views.events, name='events'),
-    path('event/create/', views.edit_event, name='create_event'),
+    path('event/create/', views.create_event, name='create_event'),
     path('event/<int:eid>/', views.edit_event, name='edit_event'),
-    path('event/create/<str:date>', views.event_on_date, name='create_event_on_date'),
-    path('event/create/patient/<int:pid>', views.event_on_patient, name='create_event_on_patient'),
+    path('event/create/<str:date>', views.create_event_on_date,
+        name='create_event_on_date'),
+    path('event/create/patient/<int:pid>', views.create_event_on_patient,
+        name='create_event_on_patient'),
     
     path('patients/', views.patients, name='patients'),
     path('patients/ajax/search/', views.search_patients, name='search_patients'),
     path('patient/<int:pid>/', views.patient, name='patient'),
-    path('patient/create/', views.edit_patient, name='create_patient'),
+    path('patient/create/', views.create_patient, name='create_patient'),
     path('patient/edit/<int:pid>/', views.edit_patient, name='edit_patient'),
 
     path('procedures/', views.procedures, name='procedures'),
-    path('procedures/ajax/filter/', views.filter_procedures, name='filter_procedures'),
-    path('procedure/create/', views.edit_procedure, name='create_procedure'),
+    path('procedure/<int:pid>/', views.procedure, name='procedure'),
+    path('procedure/create/', views.create_procedure, name='create_procedure'),
     path('procedure/edit/<int:pid>/', views.edit_procedure, name='edit_procedure'),
 ]

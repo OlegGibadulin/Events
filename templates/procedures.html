@@ -10,54 +10,12 @@
 
     <div class="mt-4">
         {% for procedure in procedures.all %}
-            <btn href="" type="button" class="btn btn-outline-secondary mb-1 procedure">{{ procedure.title }}</btn>
+        <a href="{% url 'procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary mb-1">{{ procedure.title }}</a>
         {% endfor %}
     </div>
     <hr>
 
-    <div id="id_events"></div>
+    {% include 'inc/events.html' %}
 </div>
-
-{% endblock %}
-
-
-{% block script %}
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script>
-    /* Filtering events by clicling on the procedure label */
-    var procedureButtons = $(".procedure");
-
-    function filterEvents(button) {
-        var title = $(button).text();
-        console.log(title);
-        
-        procedureButtons.removeClass("btn-secondary text-white")
-        $(button).addClass("btn-secondary text-white")
-
-        $.ajax({
-            url: '{% url "filter_procedures" %}',
-            data: {
-                'procedure_title': title
-            },
-            dataType: 'html',
-            success: function(data) {
-                $('#id_events').html(data)
-            },
-            error: function() {
-                alert("Error filtering events");
-            }
-        });
-    }
-
-    firstButton = document.getElementsByClassName("procedure")[0]
-    filterEvents(firstButton)
-
-    $(".procedure").on('click', function() {
-        filterEvents(this)
-    });
-</script>
 
 {% endblock %}

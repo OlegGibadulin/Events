@@ -14,7 +14,9 @@
             
             <h6 class="text-secondary">Процедуры
                 {% for procedure in event.procedures.all %}
-                    <a href="{% url 'edit_procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary">{{ procedure.title }}</a>
+                    {% if procedure.is_active %}
+                        <a href="{% url 'procedure' pid=procedure.pk %}" type="button " class="btn btn-outline-secondary">{{ procedure.title }}</a>
+                    {% endif %}
                 {% endfor %}
             </h6>
 

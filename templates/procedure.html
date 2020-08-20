@@ -4,18 +4,12 @@
 {% block content %}
 
 <div class="container mt-3">
-    <div class="clearfix text-center">
-        <a class="btn btn-primary w-25" href="{% url 'create_event_on_patient' pid=patient.pk %}"> + </a>
-    </div>
-
     <h4 class="d-flex justify-content-between mt-5">
-        {{ patient.name }}
-        <form action="{% url 'edit_patient' pid=patient.pk %}">
+        {{ procedure.title }}
+        <form action="{% url 'edit_procedure' pid=procedure.pk %}">
             <input class="btn btn-success" type="submit" value="Edit" />
         </form>
     </h4>
-
-    <p class="mt-4"> {{ patient.description }} </p>
     <hr>
 
     {% include 'inc/events.html' %}

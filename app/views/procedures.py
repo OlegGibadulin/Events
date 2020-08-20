@@ -3,7 +3,6 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
-from django.template.loader import render_to_string
 
 from app.models import Procedure, Event
 from app.forms import ProcedureForm
@@ -12,25 +11,38 @@ from app.forms import ProcedureForm
 def procedures(request):
     context = {
         'procedures': Procedure.objects.newest(),
-        'events': Event.objects.all(),
+        'events': Event.objects.newest(),
     }
     return render(request, 'procedures.html', context)
 
 @login_required(login_url='/login')
-def edit_procedure(request, pid=None):
-    instance = Procedure() if not pid else get_object_or_404(Procedure, pk=pid)
+def create_procedure(request):
+    instance = Procedure()
     form = ProcedureForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('procedures'))
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'create_form.html', {'form': form})
 
 @login_required(login_url='/login')
-def filter_procedures(request):
-    procedure_title = request.GET.get('procedure_title', None)
-    events = Event.objects.by_procedure(procedure_title)
-    html = render_to_string('inc/events.html', {'events': events})
-    # print(events)
-    # data = serializers.serialize("json", events)
-    # return JsonResponse(data, safe=False)
-    return HttpResponse(html)
+def edit_procedure(request, pid):
+    instance = Procedure() if not pid else get_object_or_404(Procedure, pk=pid)
+    form = ProcedureForm(request.POST or None, instance=instance)
+    if request.POST:
+        if 'delete' in request.POST:
+            Procedure.objects.delete(pid)
+            return HttpResponseRedirect(reverse('procedures'))
+        elif 'save' in request.POST and form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('procedures'))
+    return render(request, 'edit_form.html', {'form': form})
+
+@login_required(login_url='/login')
+def procedure(request, pid):
+    procedure = Procedure.objects.get(pk=pid)
+    events = Event.objects.by_procedure(pid)
+    context = {
+        'procedure': procedure,
+        'events': events,
+    }
+    return render(request, 'procedure.html', context)

@@ -33,10 +33,10 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('login'))
 
-def validate_username(request):
-    username = request.GET.get('username', None)
-    data = {
-        'is_taken': User.objects.filter(username__iexact=username).exists(),
-    }
-    return JsonResponse(data)
+# def validate_username(request):
+#     username = request.GET.get('username', None)
+#     data = {
+#         'is_taken': User.objects.filter(username__iexact=username).exists(),
+#     }
+#     return JsonResponse(data)
 

@@ -12,7 +12,7 @@ class Calendar(HTMLCalendar):
     # formats a day as a td
     # filter events by day
     def formatday(self, day, events):
-        events_per_day = events.filter(date__day=day)
+        events_per_day = Event.objects.by_day(day)
 
         if day != 0:
             date_str = str(self.year) + '-' + str(self.month).zfill(2) + \
@@ -22,11 +22,13 @@ class Calendar(HTMLCalendar):
             url = ''
 
             if events_per_day.count() > 0:
-                cell_style = 'btn-primary'
+                # Day with events
+                cell_style = 'btn-warning'
                 if date.day == datetime.today().day:
                     cell_style += 'font-weight-bold'
                 url = events_per_day[0].get_html_url
             else:
+                # Day without events
                 cell_style = 'btn-outline-secondary'
                 if date.date() == datetime.today().date():
                     cell_style = 'font-weight-bold text-dark'
