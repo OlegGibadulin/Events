@@ -30,8 +30,6 @@ class EventForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         self.label_suffix=''
-        self.fields['patient'].queryset = Patient.objects.newest()
-        self.fields['procedures'].queryset = Procedure.objects.newest()
 
 class PatientForm(forms.ModelForm):
     class Meta:

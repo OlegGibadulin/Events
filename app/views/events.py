@@ -4,17 +4,23 @@ from django.urls import reverse
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
-from app.models import Event, Patient
+from app.models import Event, Patient, UserProfile, Procedure
 from app.forms import EventForm
 
 def handle_create_form(request, form):
+    form.fields['patient'].queryset = Patient.objects.newest(request.user)
+    form.fields['procedures'].queryset = Procedure.objects.newest(request.user)
+
     if 'term' in request.GET:
         pattern = request.GET.get('term')
-        medications = Event.objects.medication_list(pattern)
+        medications = Event.objects.medication_list(pattern, request.user)
         return JsonResponse(medications, safe=False)
     
     if request.POST and form.is_valid():
-        form.save()
+        event = form.save(commit=False)
+        event.author = UserProfile.objects.by_user(request.user)
+        event.save()
+        form.save_m2m()
         return HttpResponseRedirect(reverse('calendar'))
     return render(request, 'create_form.html', {'form': form})
 
@@ -41,10 +47,12 @@ def create_event_on_patient(request, pid):
 def edit_event(request, eid=None):
     instance = Event() if not eid else get_object_or_404(Event, pk=eid)
     form = EventForm(request.POST or None, instance=instance)
+    form.fields['patient'].queryset = Patient.objects.newest(request.user)
+    form.fields['procedures'].queryset = Procedure.objects.newest(request.user)
     
     if 'term' in request.GET:
         pattern = request.GET.get('term')
-        medications = Event.objects.medication_list(pattern)
+        medications = Event.objects.medication_list(pattern, request.user)
         return JsonResponse(medications, safe=False)
     
     if request.POST:
@@ -59,7 +67,7 @@ def edit_event(request, eid=None):
 @login_required(login_url='/login')
 def events(request, date):
     context = {
-        'events': Event.objects.by_date(date),
+        'events': Event.objects.by_date(date, request.user),
         'date': date,
     }
     return render(request, 'events.html', context)

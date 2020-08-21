@@ -5,10 +5,20 @@ from django.contrib.auth.models import User
 
 from app.managers import PatientManager, EventManager, ProcedureManager, ProfileManager
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    objects = ProfileManager()
+
+    def __str__(self):
+        return self.user.username
+
 class Patient(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     is_active = models.BooleanField(default=True)
+
+    author = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
 
     objects = PatientManager()
 
@@ -19,6 +29,8 @@ class Procedure(models.Model):
     title = models.CharField(max_length=200)
     ref_num = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
+
+    author = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
 
     objects = ProcedureManager()
 
@@ -35,6 +47,7 @@ class Event(models.Model):
 
     procedures = models.ManyToManyField(Procedure, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.PROTECT)
+    author = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
 
     objects = EventManager()
 
@@ -42,12 +55,3 @@ class Event(models.Model):
     def get_html_url(self):
         url = reverse('events', args=(self.date.strftime('%Y-%m-%d'),))
         return f'href="{url}"'
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    objects = ProfileManager()
-
-    def __str__(self):
-        return self.user.username
-

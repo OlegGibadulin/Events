@@ -4,14 +4,14 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 
-from app.models import Procedure, Event
+from app.models import Procedure, Event, UserProfile
 from app.forms import ProcedureForm
 
 @login_required(login_url='/login')
 def procedures(request):
     context = {
-        'procedures': Procedure.objects.newest(),
-        'events': Event.objects.newest(),
+        'procedures': Procedure.objects.newest(request.user),
+        'events': Event.objects.newest(request.user),
     }
     return render(request, 'procedures.html', context)
 
@@ -20,7 +20,9 @@ def create_procedure(request):
     instance = Procedure()
     form = ProcedureForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
-        form.save()
+        procedure = form.save(commit=False)
+        procedure.author = UserProfile.objects.by_user(request.user)
+        procedure.save()
         return HttpResponseRedirect(reverse('procedures'))
     return render(request, 'create_form.html', {'form': form})
 
@@ -40,7 +42,7 @@ def edit_procedure(request, pid):
 @login_required(login_url='/login')
 def procedure(request, pid):
     procedure = Procedure.objects.get(pk=pid)
-    events = Event.objects.by_procedure(pid)
+    events = Event.objects.by_procedure(pid, request.user)
     context = {
         'procedure': procedure,
         'events': events,
