@@ -1,9 +1,13 @@
 # pull official base image
 FROM python:3.8.3-alpine
 
+# create the app user
+RUN addgroup -S app && adduser -S app -G app
+
 # set work directory
-RUN mkdir -p /usr/src/app/
-WORKDIR /usr/src/app/
+ENV APP_HOME=/usr/src/app/
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -19,10 +23,16 @@ COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # copy entrypoint.sh
-COPY ./entrypoint.sh .
+COPY ./entrypoint.sh $APP_HOME
 
 # copy project
-COPY . .
+COPY . $APP_HOME
+
+# chown all the files to the app user
+RUN chown -R app:app $APP_HOME
+
+# change to the app user
+USER app
 
 # run entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
