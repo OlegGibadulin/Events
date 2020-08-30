@@ -142,3 +142,6 @@ dmypy.json
 
 # environment variables
 .envs
+
+# static files created by python3 manage.py collectstatic cmd
+Events/static
